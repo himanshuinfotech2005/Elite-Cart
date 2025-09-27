@@ -31,7 +31,7 @@ const BlogPage = async () => {
               <div className="bg-gray-100 p-5">
                 <div className="text-xs flex items-center gap-5">
                   <div className="flex items-center relative group cursor-pointer">
-                    {blog?.blogcategories?.map((item, index) => (
+                    {blog.blogcategories?.map((item, index) => (
                       <p
                         key={index}
                         className="font-semibold text-shop_dark_green tracking-wider"
@@ -48,10 +48,10 @@ const BlogPage = async () => {
                   </p>
                 </div>
                 <Link
-                  href={`/blog/${blog?.slug?.current}`}
+                  href={`/blog/${blog.slug?.current}`}
                   className="text-base font-bold tracking-wide mt-5 line-clamp-2 hover:text-shop_dark_green hoverEffect"
                 >
-                  {blog?.title}
+                  {blog.title}
                 </Link>
               </div>
             </div>
