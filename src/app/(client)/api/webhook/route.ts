@@ -71,11 +71,11 @@ export async function POST(req: NextRequest) {
         razorpayInvoice: invoiceData
           ? {
               id: invoiceData.id,
-              number: invoiceData.number,
+              number: (invoiceData as any).number || "N/A",
               status: invoiceData.status,
-              amount: invoiceData.amount / 100,
-              currency: invoiceData.currency,
-              invoice_url: invoiceData.short_url || invoiceData.invoice_url,
+              amount: (invoiceData as any).amount / 100,
+              currency: (invoiceData as any).currency,
+              invoice_url: (invoiceData as any).short_url || (invoiceData as any).invoice_url,
               created_at: invoiceData.created_at
                 ? new Date(invoiceData.created_at * 1000).toISOString()
                 : null,
