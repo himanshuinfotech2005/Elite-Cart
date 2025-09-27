@@ -53,7 +53,7 @@ export async function createCheckoutSession(
         products: JSON.stringify(products),
         amountDiscount: 0, // Add discount if you have
       },
-      payment_capture: 1,
+      payment_capture: true,
     });
 
     console.log("Razorpay order response:", order);
