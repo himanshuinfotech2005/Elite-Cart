@@ -1,3 +1,4 @@
+// src/app/(client)/blog/[slug]/page.tsx
 import Container from "@/components/Container";
 import { Title } from "@/components/ui/text";
 import { urlFor } from "@/sanity/lib/image";
@@ -11,12 +12,10 @@ import { notFound } from "next/navigation";
 import React from "react";
 import { Blog } from "../../../../../sanity.types";
 
-type SingleBlogPageProps = {
-  params: { slug: string };
-};
 
-const SingleBlogPage = async ({ params }: SingleBlogPageProps) => {
-  const { slug } = params;
+
+const SingleBlogPage = async ({ params }: { params: { slug: string } }) => {
+  const slug = params.slug;
   const blog: Blog | null = await getSingleBlog(slug);
 
   if (!blog) return notFound();
@@ -39,10 +38,7 @@ const SingleBlogPage = async ({ params }: SingleBlogPageProps) => {
             <div className="text-xs flex items-center gap-5 my-7">
               <div className="flex items-center relative group cursor-pointer">
                 {blog.blogcategories?.map((item, index) => (
-                  <p
-                    key={index}
-                    className="font-semibold text-shop_dark_green tracking-wider"
-                  >
+                  <p key={index} className="font-semibold text-shop_dark_green tracking-wider">
                     {item?.title || "No Category"}
                   </p>
                 ))}
@@ -72,19 +68,13 @@ const SingleBlogPage = async ({ params }: SingleBlogPageProps) => {
                   block: {
                     normal: ({ children }) => <p className="my-5 text-base/8">{children}</p>,
                     h2: ({ children }) => (
-                      <h2 className="my-5 text-2xl font-medium tracking-tight text-gray-950">
-                        {children}
-                      </h2>
+                      <h2 className="my-5 text-2xl font-medium tracking-tight text-gray-950">{children}</h2>
                     ),
                     h3: ({ children }) => (
-                      <h3 className="my-5 text-xl font-medium tracking-tight text-gray-950">
-                        {children}
-                      </h3>
+                      <h3 className="my-5 text-xl font-medium tracking-tight text-gray-950">{children}</h3>
                     ),
                     blockquote: ({ children }) => (
-                      <blockquote className="my-5 border-l-2 border-l-gray-300 pl-6 text-base/8 text-gray-950">
-                        {children}
-                      </blockquote>
+                      <blockquote className="my-5 border-l-2 border-l-gray-300 pl-6 text-base/8 text-gray-950">{children}</blockquote>
                     ),
                   },
                   types: {
@@ -99,28 +89,13 @@ const SingleBlogPage = async ({ params }: SingleBlogPageProps) => {
                     ),
                   },
                   list: {
-                    bullet: ({ children }) => (
-                      <ul className="list-disc pl-4 text-base/8 marker:text-gray-400">
-                        {children}
-                      </ul>
-                    ),
-                    number: ({ children }) => (
-                      <ol className="list-decimal pl-4 text-base/8 marker:text-gray-400">
-                        {children}
-                      </ol>
-                    ),
+                    bullet: ({ children }) => <ul className="list-disc pl-4 text-base/8 marker:text-gray-400">{children}</ul>,
+                    number: ({ children }) => <ol className="list-decimal pl-4 text-base/8 marker:text-gray-400">{children}</ol>,
                   },
                   marks: {
-                    strong: ({ children }) => (
-                      <strong className="font-semibold text-gray-950">{children}</strong>
-                    ),
+                    strong: ({ children }) => <strong className="font-semibold text-gray-950">{children}</strong>,
                     link: ({ value, children }) => (
-                      <Link
-                        href={value.href}
-                        className="font-medium text-gray-950 underline decoration-gray-400 underline-offset-4"
-                      >
-                        {children}
-                      </Link>
+                      <Link href={value.href} className="font-medium text-gray-950 underline decoration-gray-400 underline-offset-4">{children}</Link>
                     ),
                   },
                 }}
@@ -152,10 +127,7 @@ const BlogLeft = async ({ slug }: { slug: string }) => {
         <Title className="text-base">Blog Categories</Title>
         <div className="space-y-2 mt-2">
           {categories?.map(({ blogcategories }, index) => (
-            <div
-              key={index}
-              className="text-lightColor flex items-center justify-between text-sm font-medium"
-            >
+            <div key={index} className="text-lightColor flex items-center justify-between text-sm font-medium">
               <p>{blogcategories?.[0]?.title || "No Category"}</p>
               <p className="text-darkColor font-semibold">{`(1)`}</p>
             </div>
@@ -167,11 +139,7 @@ const BlogLeft = async ({ slug }: { slug: string }) => {
         <Title className="text-base">Latest Blogs</Title>
         <div className="space-y-4 mt-4">
           {blogs?.map((blog, index) => (
-            <Link
-              href={`/blog/${blog.slug?.current || ""}`}
-              key={index}
-              className="flex items-center gap-2 group"
-            >
+            <Link href={`/blog/${blog.slug?.current || ""}`} key={index} className="flex items-center gap-2 group">
               {blog.mainImage && (
                 <Image
                   src={urlFor(blog.mainImage).url()}
@@ -181,9 +149,7 @@ const BlogLeft = async ({ slug }: { slug: string }) => {
                   className="w-16 h-16 rounded-full object-cover border-[1px] border-shop_dark_green/10 group-hover:border-shop_dark_green"
                 />
               )}
-              <p className="line-clamp-2 text-sm text-lightColor group-hover:text-shop_dark_green">
-                {blog.title || "No Title"}
-              </p>
+              <p className="line-clamp-2 text-sm text-lightColor group-hover:text-shop_dark_green">{blog.title || "No Title"}</p>
             </Link>
           ))}
         </div>
