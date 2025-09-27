@@ -13,8 +13,10 @@ import React from "react";
 import { Blog } from "../../../../../sanity.types";
 
 
-
-const SingleBlogPage = async ({ params }: { params: { slug: string } }) => {
+type Props={
+  params:{slug:string}
+}
+const SingleBlogPage = async ({ params }: Props) => {
   const slug = params.slug;
   const blog: Blog | null = await getSingleBlog(slug);
 
