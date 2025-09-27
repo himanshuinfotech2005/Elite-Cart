@@ -11,7 +11,11 @@ import { notFound } from "next/navigation";
 import React from "react";
 import { Blog } from "../../../../../sanity.types";
 
-const SingleBlogPage = async ({ params }: { params: { slug: string } }) => {
+type SingleBlogPageProps = {
+  params: { slug: string };
+};
+
+const SingleBlogPage = async ({ params }: SingleBlogPageProps) => {
   const { slug } = params;
   const blog: Blog | null = await getSingleBlog(slug);
 
@@ -21,7 +25,7 @@ const SingleBlogPage = async ({ params }: { params: { slug: string } }) => {
     <div className="py-10">
       <Container className="grid grid-cols-1 lg:grid-cols-4 gap-5">
         <div className="md:col-span-3">
-          {blog?.mainImage && (
+          {blog.mainImage && (
             <Image
               src={urlFor(blog.mainImage).url()}
               alt={blog.title || "Blog Image"}
@@ -30,6 +34,7 @@ const SingleBlogPage = async ({ params }: { params: { slug: string } }) => {
               className="w-full max-h-[500px] object-cover rounded-lg"
             />
           )}
+
           <div className="mt-5">
             <div className="text-xs flex items-center gap-5 my-7">
               <div className="flex items-center relative group cursor-pointer">
@@ -38,7 +43,7 @@ const SingleBlogPage = async ({ params }: { params: { slug: string } }) => {
                     key={index}
                     className="font-semibold text-shop_dark_green tracking-wider"
                   >
-                    {item?.title}
+                    {item?.title || "No Category"}
                   </p>
                 ))}
                 <span className="absolute left-0 -bottom-1.5 bg-lightColor/30 inline-block w-full h-[2px] group-hover:bg-shop_dark_green hoverEffect" />
@@ -58,7 +63,7 @@ const SingleBlogPage = async ({ params }: { params: { slug: string } }) => {
               </p>
             </div>
 
-            <h2 className="text-2xl font-bold my-5">{blog.title}</h2>
+            <h2 className="text-2xl font-bold my-5">{blog.title || "No Title"}</h2>
 
             {blog.body && (
               <PortableText
@@ -167,7 +172,7 @@ const BlogLeft = async ({ slug }: { slug: string }) => {
               key={index}
               className="flex items-center gap-2 group"
             >
-              {blog?.mainImage && (
+              {blog.mainImage && (
                 <Image
                   src={urlFor(blog.mainImage).url()}
                   alt="blogImage"
