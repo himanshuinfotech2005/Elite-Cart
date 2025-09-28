@@ -11,20 +11,11 @@ import { notFound } from "next/navigation";
 import { SINGLE_BLOG_QUERYResult } from "../../../../../sanity.types";
 import BlogLeft from "./BlogLeft";
 
-interface Params {
-  slug: string;
-}
-
-interface PageProps {
-  params: Params;
-}
-
 // @ts-expect-error Async page params type mismatch in Next.js App Router
-const SingleBlogPage = async ({ params }: PageProps) => {
-  const { slug } = params;
+const SingleBlogPage = async (props: any) => {
+  const { slug } = props.params;
 
   const blog: SINGLE_BLOG_QUERYResult | null = await getSingleBlog(slug);
-
 
   if (!blog) return notFound();
 
@@ -124,6 +115,5 @@ const SingleBlogPage = async ({ params }: PageProps) => {
     </div>
   );
 };
-
 
 export default SingleBlogPage;
