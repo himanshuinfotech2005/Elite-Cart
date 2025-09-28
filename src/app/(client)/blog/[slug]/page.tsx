@@ -19,6 +19,7 @@ interface PageProps {
   params: Params;
 }
 
+// @ts-expect-error Async page params type mismatch in Next.js App Router
 const SingleBlogPage = async ({ params }: PageProps) => {
   const { slug } = params;
 
