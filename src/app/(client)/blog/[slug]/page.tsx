@@ -11,13 +11,17 @@ import { notFound } from "next/navigation";
 import { SINGLE_BLOG_QUERYResult } from "../../../../../sanity.types";
 import BlogLeft from "./BlogLeft";
 
-interface BlogPageProps {
-  params: { slug: string };
+interface Params {
+  slug: string;
 }
 
+interface PageProps {
+  params: Params;
+}
 
-const SingleBlogPage = async ({ params }: BlogPageProps) => {
+const SingleBlogPage = async ({ params }: PageProps) => {
   const { slug } = params;
+
   const blog: SINGLE_BLOG_QUERYResult | null = await getSingleBlog(slug);
 
 
